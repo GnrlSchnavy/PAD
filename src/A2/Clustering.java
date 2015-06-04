@@ -1,11 +1,13 @@
-import java.io.*;
+package A2;
+
+import ui.UIAuxiliaryMethods;
+
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Scanner;
-
-import ui.UIAuxiliaryMethods;
 
 
 public class Clustering{
@@ -112,7 +114,7 @@ public class Clustering{
                 double value = file.nextDouble();
                 numberRow.addValue(value);
             }
-            unit = new Unit (unitName,numberRow);
+            unit = new Unit(unitName,numberRow);
             unitRow.addUnit(unit);
             dataSet.addUnitRow(unitRow);
         }

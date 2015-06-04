@@ -1,3 +1,5 @@
+package A1;
+
 public class NumberRow {
 
     private double []values;
