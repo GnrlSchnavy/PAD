@@ -10,7 +10,6 @@ import ui.UIAuxiliaryMethods;
 
 public class Clustering{
 
-    testsetst
     PrintStream out;
     Unit unit;
     UnitRow unitRow;
