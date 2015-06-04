@@ -5,6 +5,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Scanner;
 
+import A1.Dataset;
+import A1.NumberRow;
+import A1.Unit;
+import A1.UnitRow;
 import ui.UIAuxiliaryMethods;
 
 

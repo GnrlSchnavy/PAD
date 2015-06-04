@@ -1,6 +1,8 @@
+import A1.Unit;
+
 public class UnitRow {
 
-	private Unit [] UnitRow;
+	private Unit[] UnitRow;
 	private int length = 0;
 	
 	UnitRow(int x){
