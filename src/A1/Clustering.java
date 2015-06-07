@@ -26,8 +26,8 @@ public class Clustering{
         Scanner file = new Scanner(System.in);
         dataSet = readFile(file);
         NumberRow maximumValues = calculateMaximumValues(dataSet);
-        //printDataSetToFile(dataSet);
-        //printDataSet(dataSet);
+        printDataSetToFile(dataSet);
+        printDataSet(dataSet);
     }
     public void printDataSetToFile(Dataset toPrintDataSet)  {
         PrintWriter writer = null;

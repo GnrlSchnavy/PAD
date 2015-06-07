@@ -8,17 +8,17 @@ public class NumberRow {
     public NumberRow(int fileFormat){
         setValues(new double[fileFormat]);
     }
-    public double [] addValue(double value){
-        getValues()[length] = value;
+    public void addValue(double value){
+        values[length] = value;
         length++;
-        return getValues();
     }
-    public double [] getValues(){
-        return values;
+    public double getValues(int i){
+        return values[i];
     }
     public void setValues(double[] values){
         this.values = values;
     }
+    public void setValue(int i,double value){values[i]=value;}
     public int getLength() {
         return length;
     }

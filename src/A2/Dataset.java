@@ -1,5 +1,7 @@
 package A2;
 
+import java.util.Arrays;
+
 public class Dataset {
 
     private int numberOfClusters;
@@ -14,46 +16,52 @@ public class Dataset {
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){
-                toNormalizeDataSet.getUnitRow().getUnitRow()[i].getUnitValues().getValues()[j]=(toNormalizeDataSet.getUnitRow().getUnitRow()[i].getUnitValues().getValues()[j] - minimumValues.getValues()[j])/(maximumValues.getValues()[j]-minimumValues.getValues()[j]);
+                toNormalizeDataSet.unitRow.getUnit(i).getUnitValues().setValue(j,(toNormalizeDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j) - minimumValues.getValues(j))/(maximumValues.getValues(j)-minimumValues.getValues(j)));
             }
         }
         return toNormalizeDataSet;
     }
-    public Dataset doPreselection(Dataset normalizedDataSet){
+    public UnitRow doPreselection(Dataset normalizedDataSet){
         double [] averageValueRow = addAllNumbers(normalizedDataSet);
         NumberRow standardDeviationRow = calculateStandardDeviationRow(normalizedDataSet,averageValueRow);
         getHighestStandardDeviation(standardDeviationRow,normalizedDataSet);
-        return normalizedDataSet;
+        return null;
     }
     private void getHighestStandardDeviation(NumberRow standardDeviationRow, Dataset normalizedDataSet){
-        System.out.print("is used");
+        //data contains more than 50
+        int [] highestStandardDeviationsIndecies= new int [50];
         for(int i = 0;i<50;i++){
-            int highestValueSpot=(int) standardDeviationRow.getValues()[0];
+            int highestIndexNumber =0;
+            double highestValue = -Double.MAX_VALUE;
             for(int j = 0;j<standardDeviationRow.getLength();j++){
-                if(standardDeviationRow.getValues()[j]>highestValueSpot){
-                    highestValueSpot=j;
-
+                if(standardDeviationRow.getValues(j)>highestValue){
+                    highestIndexNumber=j;
+                    highestValue = standardDeviationRow.getValues(j);
                 }
             }
-            switchValues(i,highestValueSpot, standardDeviationRow, normalizedDataSet);
+            highestStandardDeviationsIndecies[i]=highestIndexNumber;
+            standardDeviationRow.setValue(highestIndexNumber,-Double.MAX_VALUE);
+            //System.out.println( highestStandardDeviationsIndecies[i]);
+
+        }
+        Arrays.sort(highestStandardDeviationsIndecies);
+        for (int i = 0; i <50 ; i++) {
+            System.out.println(normalizedDataSet.getNames()[highestStandardDeviationsIndecies[i]]);
         }
     }
-    private void switchValues(int i, int highestValueSpot, NumberRow standardDeviationRow, Dataset normalizedDataSet) {
-        Unit temp = normalizedDataSet.getUnitRow().getUnitRow()[i-1];
-        normalizedDataSet.unitRow.getUnitRow()[i] = normalizedDataSet.unitRow.getUnitRow()[highestValueSpot];
-        normalizedDataSet.unitRow.getUnitRow()[highestValueSpot] = temp;
-    }
+
     private NumberRow calculateStandardDeviationRow(Dataset normalizedDataSet, double [] averageValueRow){
         int counter = 0;
         NumberRow standardDeviationRow = new NumberRow(normalizedDataSet.getNumberOfVariables());
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             double sum = 0;
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
-                sum+=Math.pow(normalizedDataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i]-averageValueRow[i],2);
+                sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i)-averageValueRow[i],2);
                 counter++;
             }
-            standardDeviationRow.getValues()[i]=Math.sqrt((sum/normalizedDataSet.numberOfVariableRows*normalizedDataSet.numberOfVariables)-1);
-            System.out.print(counter/20+"  " + Math.sqrt(sum/((normalizedDataSet.numberOfVariableRows)-1))+"\n");
+            standardDeviationRow.addValue(Math.sqrt((sum/normalizedDataSet.numberOfVariableRows*normalizedDataSet.numberOfVariables)-1));
+            //System.out.print(counter/20+"  " + Math.sqrt(sum/((normalizedDataSet.numberOfVariableRows)-1))+"\n");
+            //System.out.println(standardDeviationRow.getValues(i));
         }
         return standardDeviationRow;
     }
@@ -62,7 +70,7 @@ public class Dataset {
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             double sum = 0;
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
-                sum += normalizedDataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i];
+                sum += normalizedDataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i);
             }
             sumRow[i]=sum/normalizedDataSet.numberOfVariableRows;
         }
