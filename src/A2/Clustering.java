@@ -22,6 +22,7 @@ public class Clustering{
         Locale.setDefault(Locale.US);
     }
     private void start()  {
+        System.out.println("running A2");
         UIAuxiliaryMethods.askUserForInput();
         Scanner file = new Scanner(System.in);//.useLocale(Locale.US);
         dataSet = readFile(file);
