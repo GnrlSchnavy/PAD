@@ -15,6 +15,7 @@ public class Clustering{
     PrintStream out;
     Unit unit;
     UnitRow unitRow;
+
     Dataset dataSet;
     NumberRow numberRow;
     Clustering(){
