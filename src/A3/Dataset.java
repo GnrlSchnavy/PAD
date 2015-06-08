@@ -28,7 +28,6 @@ public class Dataset {
         return null;
     }
     private void getHighestStandardDeviation(NumberRow standardDeviationRow, Dataset normalizedDataSet){
-        //data contains more than 50
         if(standardDeviationRow.getLength()>50){
             getTop50(standardDeviationRow,normalizedDataSet);
         }
