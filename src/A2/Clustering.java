@@ -30,7 +30,7 @@ public class Clustering{
         NumberRow minimumValues = calculateMinumumValues(dataSet);
         dataSet.normalize(dataSet, maximumValues, minimumValues);
         dataSet.doPreselection(dataSet);
-      //  printDataSetToFile(dataSet);
+        printDataSetToFile(dataSet);
       //  printDataSet(dataSet);
     }
     public void printDataSetToFile(Dataset toPrintDataSet)  {
@@ -105,6 +105,8 @@ public class Clustering{
         dataSet.setNumberOfVariables(file.nextInt());
         dataSet.setNames(getNames(file));
         unitRow = new UnitRow (dataSet.getNumberOfVariableRows());
+        //System.out.println(dataSet.getNumberOfVariableRows());
+        //System.out.println(dataSet.getNumberOfVariables());
 
         for (int i = 0;i<dataSet.getNumberOfVariableRows();i++){
             numberRow = new NumberRow(dataSet.getNumberOfVariables());

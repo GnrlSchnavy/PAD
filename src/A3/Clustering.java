@@ -15,7 +15,6 @@ public class Clustering{
     PrintStream out;
     Unit unit;
     UnitRow unitRow;
-
     Dataset dataSet;
     NumberRow numberRow;
     Clustering(){
@@ -23,25 +22,16 @@ public class Clustering{
         Locale.setDefault(Locale.US);
     }
     private void start()  {
-        startUpThings();
-        createDataSet();
-        //printing();
-    }
-    private void printing() {
-        printDataSetToFile(dataSet);
-        printDataSet(dataSet);
-    }
-    private void startUpThings() {
         System.out.println("running A3");
         UIAuxiliaryMethods.askUserForInput();
         Scanner file = new Scanner(System.in);//.useLocale(Locale.US);
         dataSet = readFile(file);
-    }
-    private void createDataSet() {
         NumberRow maximumValues = calculateMaximumValues(dataSet);
         NumberRow minimumValues = calculateMinumumValues(dataSet);
         dataSet.normalize(dataSet, maximumValues, minimumValues);
         dataSet.doPreselection(dataSet);
+        // printDataSetToFile(dataSet);
+        //  printDataSet(dataSet);
     }
     public void printDataSetToFile(Dataset toPrintDataSet)  {
         PrintWriter writer = null;
@@ -54,7 +44,7 @@ public class Clustering{
             e.printStackTrace();
         }
 
-        for (int i = 0;i<toPrintDataSet.getNumberOfVariableRows();i++){
+          for (int i = 0;i<toPrintDataSet.getNumberOfVariableRows();i++){
             writer.print(toPrintDataSet.getUnitRow().getUnit(i).getUnitName()+"  ");
             for(int j= 0;j<toPrintDataSet.getNumberOfVariables();j++){
                 writer.print(toPrintDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j)+"  ");
@@ -102,7 +92,7 @@ public class Clustering{
                 }
             }
             highestValueRow.setValue(i,highestValue);
-            System.out.print(highestValueRow.getValues(i) + "\n");
+            //System.out.print(highestValueRow.getValues()[i] + "\n");
 
         }
         return highestValueRow;
@@ -115,6 +105,8 @@ public class Clustering{
         dataSet.setNumberOfVariables(file.nextInt());
         dataSet.setNames(getNames(file));
         unitRow = new UnitRow(dataSet.getNumberOfVariableRows());
+        //System.out.println(dataSet.getNumberOfVariableRows());
+        //System.out.println(dataSet.getNumberOfVariables());
 
         for (int i = 0;i<dataSet.getNumberOfVariableRows();i++){
             numberRow = new NumberRow(dataSet.getNumberOfVariables());

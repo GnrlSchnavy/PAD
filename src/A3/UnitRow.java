@@ -4,6 +4,7 @@ public class UnitRow {
 
     private Unit[] UnitRow;
     private int length = 0;
+
     UnitRow(int length){
         UnitRow=new Unit[length];
     }
