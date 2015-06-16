@@ -36,7 +36,7 @@ public class Dataset {
         }
     }
     private void getVariables(NumberRow standardDeviationRow, Dataset normalizedDataSet) {
-              //System.out.println(normalizedDataSet.getNumberOfVariables());
+        //System.out.println(normalizedDataSet.getNumberOfVariables());
         int [] highestStandardDeviationsIndecies= new int [normalizedDataSet.getNumberOfVariables()];
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             int highestIndexNumber =0;
@@ -59,8 +59,8 @@ public class Dataset {
         }
     }
     private void getTop50(NumberRow standardDeviationRow, Dataset normalizedDataSet) {
-
         int [] highestStandardDeviationsIndecies= new int [50];
+        double [] highestStandardDeviationsValues = new double [50];
         for(int i = 0;i<50;i++){
             int highestIndexNumber =0;
             double highestValue = -Double.MAX_VALUE;
@@ -71,13 +71,12 @@ public class Dataset {
                 }
             }
             highestStandardDeviationsIndecies[i]=highestIndexNumber+1;
+            highestStandardDeviationsValues[i] = highestValue;
             standardDeviationRow.setValue(highestIndexNumber,-Double.MAX_VALUE);
-            //System.out.println( highestStandardDeviationsIndecies[i]);
-
         }
-        Arrays.sort(highestStandardDeviationsIndecies);
         for (int i = 0; i <50 ; i++) {
             System.out.println(normalizedDataSet.getNames()[highestStandardDeviationsIndecies[i]]);
+            System.out.println(highestStandardDeviationsValues[i]);
         }
     }
     private NumberRow calculateStandardDeviationRow(Dataset normalizedDataSet, double [] averageValueRow){
