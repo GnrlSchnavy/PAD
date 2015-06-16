@@ -102,7 +102,7 @@ public class Clustering{
                 }
             }
             highestValueRow.setValue(i,highestValue);
-            //System.out.print(highestValueRow.getValues()[i] + "\n");
+            System.out.print(highestValueRow.getValues(i) + "\n");
 
         }
         return highestValueRow;

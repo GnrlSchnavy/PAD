@@ -1,5 +1,3 @@
-import A1.Unit;
-
 public class UnitRow {
 
 	private Unit[] UnitRow;

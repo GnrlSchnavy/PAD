@@ -1,13 +1,13 @@
 package A1;
 
-import java.io.*;
+import ui.UIAuxiliaryMethods;
+
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Scanner;
-
-import ui.UIAuxiliaryMethods;
 
 
 public class Clustering{
@@ -24,11 +24,14 @@ public class Clustering{
     private void start()  {
         System.out.println("running A1");
         UIAuxiliaryMethods.askUserForInput();
-        Scanner file = new Scanner(System.in);
+        Scanner file = new Scanner(System.in);//.useLocale(Locale.US);
         dataSet = readFile(file);
         NumberRow maximumValues = calculateMaximumValues(dataSet);
-        printDataSetToFile(dataSet);
-        printDataSet(dataSet);
+        NumberRow minimumValues = calculateMinumumValues(dataSet);
+        dataSet.normalize(dataSet, maximumValues, minimumValues);
+        dataSet.doPreselection(dataSet);
+      //  printDataSetToFile(dataSet);
+      //  printDataSet(dataSet);
     }
     public void printDataSetToFile(Dataset toPrintDataSet)  {
         PrintWriter writer = null;
@@ -41,13 +44,11 @@ public class Clustering{
             e.printStackTrace();
         }
 
-        for (int i = 0;i<toPrintDataSet.getNumberOfVariableRows();i++){
-            writer.print(toPrintDataSet.getUnitRow().getUnitRow()[i].getUnitName()+"  ");
+          for (int i = 0;i<toPrintDataSet.getNumberOfVariableRows();i++){
+            writer.print(toPrintDataSet.getUnitRow().getUnit(i).getUnitName()+"  ");
             for(int j= 0;j<toPrintDataSet.getNumberOfVariables();j++){
-                writer.print(toPrintDataSet.getUnitRow().getUnitRow()[i].getUnitValues().getValues()[j]+"  ");
+                writer.print(toPrintDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j)+"  ");
             }
-
-
             writer.println();
         }
         writer.close();
@@ -57,10 +58,10 @@ public class Clustering{
             System.out.print(toPrintDataSet.getNames()[i]);
         }
         System.out.print("\n");
-        for (int i = 0;i<toPrintDataSet.getUnitRow().getUnitRow().length;i++){
-            System.out.print(toPrintDataSet.getUnitRow().getUnitRow()[i] .getUnitName()+"  ");
+        for (int i = 0;i<toPrintDataSet.getUnitRow().getLength();i++){
+            System.out.print(toPrintDataSet.getUnitRow().getUnit(i) .getUnitName()+"  ");
             for (int j = 0;j<toPrintDataSet.getNumberOfVariables();j++){
-                System.out.print(toPrintDataSet.getUnitRow().getUnitRow()[i].getUnitValues().getValues()[j] + "  ");
+                System.out.print(toPrintDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j) + "  ");
             }
             System.out.print("\n");
         }
@@ -68,13 +69,13 @@ public class Clustering{
     private NumberRow calculateMinumumValues(Dataset dataSet2){
         NumberRow lowestValueRow = new NumberRow(dataSet2.getNumberOfVariables());
         for(int i = 0; i<dataSet2.getNumberOfVariables();i++){
-            double lowestValue = dataSet.getUnitRow().getUnitRow()[0].getUnitValues().getValues()[i];
+            double lowestValue = dataSet.getUnitRow().getUnit(0).getUnitValues().getValues(i);
             for(int j = 0;j<dataSet.getUnitRow().getLength();j++){
-                if(dataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i]<lowestValue){
-                    lowestValue=dataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i];
+                if(dataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i)<lowestValue){
+                    lowestValue=dataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i);
                 }
             }
-            lowestValueRow.getValues()[i]=lowestValue;
+            lowestValueRow.setValue(i, lowestValue);
             //System.out.print(lowestValueRow.getValues()[i] + "\n");
 
         }
@@ -84,16 +85,16 @@ public class Clustering{
     private NumberRow calculateMaximumValues(Dataset dataSet2){
         NumberRow highestValueRow = new NumberRow(dataSet2.getNumberOfVariables());
         for (int i =0;i<dataSet2.getNumberOfVariables();i++){
-            double highestValue = dataSet.getUnitRow().getUnitRow()[0].getUnitValues().getValues()[0];
+            double highestValue = dataSet.getUnitRow().getUnit(0).getUnitValues().getValues(0);
             for (int j = 0;j<dataSet.getUnitRow().getLength();j++){
-                if(dataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i]>highestValue){
-                    highestValue=dataSet.getUnitRow().getUnitRow()[j].getUnitValues().getValues()[i];
+                if(dataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i)>highestValue){
+                    highestValue=dataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i);
                 }
             }
-            highestValueRow.getValues()[i]=highestValue;
-            //System.out.print(highestValueRow.getValues()[i] + "\n");
+            highestValueRow.setValue(i,highestValue);
 
         }
+        System.out.print("The maximum value of the variable " + dataSet.getNames()[1] + "is " + highestValueRow.getValues(0) + "\n");
         return highestValueRow;
     }
     private Dataset readFile(Scanner file){
@@ -112,7 +113,7 @@ public class Clustering{
                 double value = file.nextDouble();
                 numberRow.addValue(value);
             }
-            unit = new Unit (unitName,numberRow);
+            unit = new Unit(unitName,numberRow);
             unitRow.addUnit(unit);
             dataSet.addUnitRow(unitRow);
         }

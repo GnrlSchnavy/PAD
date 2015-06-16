@@ -1,7 +1,3 @@
-import A1.NumberRow;
-import A1.Unit;
-import A1.UnitRow;
-
 public class Dataset {
 
 	private int numberOfClusters;
