@@ -1,4 +1,4 @@
-package A3;
+package A4;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ public class Dataset {
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){
-                toNormalizeDataSet.unitRow.getUnit(i).getUnitValues().setValue(j,(toNormalizeDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j) - minimumValues.getValues(j))/(maximumValues.getValues(j)-minimumValues.getValues(j)));
+                toNormalizeDataSet.unitRow.getUnit(i).getNumberRow().setValue(j,(toNormalizeDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) - minimumValues.getValues(j))/(maximumValues.getValues(j)-minimumValues.getValues(j)));
             }
         }
         return toNormalizeDataSet;
@@ -63,7 +63,7 @@ public class Dataset {
             for (int i = 0; i < normalizedDataSet.getNumberOfVariableRows(); i++) {
                 System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitName() + "  ");
                 for (int j = 0; j < 50; j++) {
-                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j) + "  ");
+                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) + "  ");
                 }
                 System.out.print("\n");
             }
@@ -76,7 +76,7 @@ public class Dataset {
             for (int i = 0; i < normalizedDataSet.getNumberOfVariableRows(); i++) {
                 System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitName() + "  ");
                 for (int j = 0; j < normalizedDataSet.getNumberOfVariables(); j++) {
-                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitValues().getValues(j) + "  ");
+                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) + "  ");
                 }
                 System.out.print("\n");
             }
@@ -85,8 +85,10 @@ public class Dataset {
     }
     private void copyValuesToDataSet(Dataset normalizedDataSet,int copyTo, int copyFrom) {
         for(int i=0;i < normalizedDataSet.getNumberOfVariableRows();i++ ){
-            normalizedDataSet.unitRow.getUnit(i).getUnitValues().setValue(copyTo,normalizedDataSet.unitRow.getUnit(i).getUnitValues().getValues(copyFrom));
+            //System.out.println(normalizedDataSet.unitRow.getUnit(i).getNumberRow().getValues(copyFrom));
+            normalizedDataSet.unitRow.getUnit(i).getNumberRow().setValue(copyTo,normalizedDataSet.unitRow.getUnit(i).getNumberRow().getValues(copyFrom));
             normalizedDataSet.names[copyTo]=normalizedDataSet.names[copyFrom+1];
+            //System.out.println(normalizedDataSet.getNames()[copyFrom+1]);
         }
 
     }
@@ -96,7 +98,7 @@ public class Dataset {
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             double sum = 0;
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
-                sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i)-averageValueRow[i],2);
+                sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getNumberRow().getValues(i)-averageValueRow[i],2);
                 counter++;
                 //System.out.println(sum);
             }
@@ -108,10 +110,10 @@ public class Dataset {
     public NumberRow calculateMaximumValue(){
         NumberRow highestValueRow = new NumberRow(getNumberOfVariables());
         for (int i =0;i<getNumberOfVariables();i++){
-            double highestValue = getUnitRow().getUnit(0).getUnitValues().getValues(0);
+            double highestValue = getUnitRow().getUnit(0).getNumberRow().getValues(0);
             for (int j = 0;j<getUnitRow().getLength();j++){
-                if(getUnitRow().getUnit(j).getUnitValues().getValues(i)>highestValue){
-                    highestValue=getUnitRow().getUnit(j).getUnitValues().getValues(i);
+                if(getUnitRow().getUnit(j).getNumberRow().getValues(i)>highestValue){
+                    highestValue=getUnitRow().getUnit(j).getNumberRow().getValues(i);
                 }
             }
             highestValueRow.setValue(i, highestValue);
@@ -123,10 +125,10 @@ public class Dataset {
     public NumberRow calculateMinimum() {
         NumberRow lowestValueRow = new NumberRow(getNumberOfVariables());
         for(int i = 0; i<getNumberOfVariables();i++){
-            double lowestValue = getUnitRow().getUnit(0).getUnitValues().getValues(i);
+            double lowestValue = getUnitRow().getUnit(0).getNumberRow().getValues(i);
             for(int j = 0;j<getUnitRow().getLength();j++){
-                if(getUnitRow().getUnit(j).getUnitValues().getValues(i)<lowestValue){
-                    lowestValue=getUnitRow().getUnit(j).getUnitValues().getValues(i);
+                if(getUnitRow().getUnit(j).getNumberRow().getValues(i)<lowestValue){
+                    lowestValue=getUnitRow().getUnit(j).getNumberRow().getValues(i);
                 }
             }
             lowestValueRow.setValue(i, lowestValue);
@@ -139,7 +141,7 @@ public class Dataset {
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             double sum = 0;
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
-                sum += normalizedDataSet.getUnitRow().getUnit(j).getUnitValues().getValues(i);
+                sum += normalizedDataSet.getUnitRow().getUnit(j).getNumberRow().getValues(i);
             }
             sumRow[i]=sum/normalizedDataSet.numberOfVariableRows;
         }

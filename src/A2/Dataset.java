@@ -93,7 +93,7 @@ public class Dataset {
 
     private void copyValuesToDataSet(Dataset normalizedDataSet,int copyTo, int copyFrom) {
         for(int i=0;i < normalizedDataSet.getNumberOfVariableRows();i++ ){
-            //System.out.println(normalizedDataSet.unitRow.getUnit(i).getUnitValues().getValues(copyFrom));
+            //System.out.println(normalizedDataSet.unitRow.getUnit(i).getNumberRow().getValues(copyFrom));
             normalizedDataSet.unitRow.getUnit(i).getUnitValues().setValue(copyTo,normalizedDataSet.unitRow.getUnit(i).getUnitValues().getValues(copyFrom));
             normalizedDataSet.names[copyTo]=normalizedDataSet.names[copyFrom+1];
             //System.out.println(normalizedDataSet.getNames()[copyFrom+1]);
