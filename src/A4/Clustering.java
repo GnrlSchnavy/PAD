@@ -26,14 +26,38 @@ public class Clustering{
         prerequisities();
         normalizationAndPreselection();
         ClusterRow clusterRow = new ClusterRow(dataSet);
+//        Euclidean distanceEuclidean = new Euclidean();
+//        Manhattan distanceManhattan = new Manhattan();
+//        Pearson distancePearson = new Pearson();
 
-        Euclidean distanceEuclidean = new Euclidean();
-        Manhattan distanceManhattan = new Manhattan();
-        Pearson distancePearson = new Pearson();
+//        System.out.println("Eucledian " + distanceEuclidean.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
+//        System.out.println("Manhattan " + distanceManhattan.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
+//        System.out.println("Pearson " + distancePearson.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
 
-        System.out.println("Eucledian " + distanceEuclidean.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
-        System.out.println("Manhattan " + distanceManhattan.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
-        System.out.println("Pearson " + distancePearson.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
+
+        CompleteLinkage completeLinkage = new CompleteLinkage(new Euclidean());
+        System.out.println(completeLinkage.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1)));
+        AverageLinkage averageLinkage = new AverageLinkage(new Euclidean());
+        System.out.println(averageLinkage.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+        SingleLinkage singleLinkage = new SingleLinkage(new Euclidean());
+        System.out.println(singleLinkage.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+
+        CompleteLinkage completeLinkage1 = new CompleteLinkage(new Manhattan());
+        System.out.println(completeLinkage1.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1)));
+        AverageLinkage averageLinkage1 = new AverageLinkage(new Manhattan());
+        System.out.println(averageLinkage1.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+        SingleLinkage singleLinkage1 = new SingleLinkage(new Manhattan());
+        System.out.println(singleLinkage1.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+
+        CompleteLinkage completeLinkage2 = new CompleteLinkage(new Pearson());
+        System.out.println(completeLinkage2.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1))+0.0);
+        AverageLinkage averageLinkage2 = new AverageLinkage(new Pearson());
+        System.out.println(averageLinkage2.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+        SingleLinkage singleLinkage2 = new SingleLinkage(new Pearson());
+        System.out.println(singleLinkage2.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
+
+//
+
 
         //printDataSetToFile(dataSet);
         //printCheck(dataSet);

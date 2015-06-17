@@ -1,28 +1,24 @@
-import A4.DistanceMeasure;
+package A4;
 
 public class CompleteLinkage implements ClusterMethod {
-	
-	/* Variable declaration(s) */
 
-
-	/* Constructor(s) */
+    private DistanceMeasure distanceMeasure;
 
     CompleteLinkage(DistanceMeasure distanceMeasure) {
         this.distanceMeasure = distanceMeasure;
     }
-	
-	/* Interface methods */
 
     public double calculateDistance(Cluster cluster1, Cluster cluster2) {
-
-        double thisDistance;
-        double smallestDistance = Double.MAX_VALUE;
-        for (int c1 = 0; c1 < cluster1.getWidth(); c1++){
-            for (int c2 = 0; c2 < cluster2.getWidth(); c2++){
-                thisDistance = distanceMeasure.calculateDistance(cluster1.getUnit(c1), cluster2.getUnit(c2));
-                if (thisDistance < smallestDistance) smallestDistance = thisDistance;
+        double distance;
+        double maxDistance = -Double.MAX_VALUE;
+        for (int i = 0; i < cluster1.getWidth(); i++) {
+            for (int j = 0; j < cluster2.getWidth(); j++) {
+                distance = distanceMeasure.calculateDistance(cluster1.getUnits().getUnit(i), cluster2.getUnits().getUnit(j));
+                   if (distance > maxDistance) {
+                    maxDistance = distance;
+                }
             }
         }
-        return smallestDistance;
+        return maxDistance;
     }
 }

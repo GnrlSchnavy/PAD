@@ -16,7 +16,9 @@ public class Dataset {
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){
-                toNormalizeDataSet.unitRow.getUnit(i).getNumberRow().setValue(j,(toNormalizeDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) - minimumValues.getValues(j))/(maximumValues.getValues(j)-minimumValues.getValues(j)));
+                toNormalizeDataSet.unitRow.getUnit(i).getNumberRow().setValue(j,
+                        (toNormalizeDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) - minimumValues.getValues(j))
+                                /(maximumValues.getValues(j)-minimumValues.getValues(j)));
             }
         }
         return toNormalizeDataSet;
@@ -53,36 +55,6 @@ public class Dataset {
         }
         Arrays.sort(highestStandardDeviationsIndecies);
     }
-    private void printCheck(Dataset normalizedDataSet) {
-
-        if(normalizedDataSet.getNames().length>50) {
-            for (int i = 0; i < 50; i++) {
-                System.out.print(normalizedDataSet.getNames()[i] + " ");
-            }
-            System.out.print("\n");
-            for (int i = 0; i < normalizedDataSet.getNumberOfVariableRows(); i++) {
-                System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitName() + "  ");
-                for (int j = 0; j < 50; j++) {
-                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) + "  ");
-                }
-                System.out.print("\n");
-            }
-        }
-        else{
-            for (int i = 0; i < normalizedDataSet.getNumberOfVariables(); i++) {
-                System.out.print(normalizedDataSet.getNames()[i] + " ");
-            }
-            System.out.print("\n");
-            for (int i = 0; i < normalizedDataSet.getNumberOfVariableRows(); i++) {
-                System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getUnitName() + "  ");
-                for (int j = 0; j < normalizedDataSet.getNumberOfVariables(); j++) {
-                    System.out.print(normalizedDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) + "  ");
-                }
-                System.out.print("\n");
-            }
-        }
-
-    }
     private void copyValuesToDataSet(Dataset normalizedDataSet,int copyTo, int copyFrom) {
         for(int i=0;i < normalizedDataSet.getNumberOfVariableRows();i++ ){
             //System.out.println(normalizedDataSet.unitRow.getUnit(i).getNumberRow().getValues(copyFrom));
@@ -93,17 +65,14 @@ public class Dataset {
 
     }
     private NumberRow calculateStandardDeviationRow(Dataset normalizedDataSet, double [] averageValueRow){
-        int counter = 0;
         NumberRow standardDeviationRow = new NumberRow(normalizedDataSet.getNumberOfVariables());
         for(int i = 0;i<normalizedDataSet.getNumberOfVariables();i++){
             double sum = 0;
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
                 sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getNumberRow().getValues(i)-averageValueRow[i],2);
-                counter++;
-                //System.out.println(sum);
             }
-            standardDeviationRow.addValue(Math.sqrt((sum/normalizedDataSet.numberOfVariableRows*normalizedDataSet.numberOfVariables)));
-            //System.out.println(standardDeviationRow.getValues(i));
+            standardDeviationRow.addValue(Math.sqrt((sum/(normalizedDataSet.numberOfVariableRows*normalizedDataSet.numberOfVariables))));
+//            standardDeviationRow.addValue(Math.sqrt((sum/(normalizedDataSet.numberOfVariableRows-1))));
         }
         return standardDeviationRow;
     }
@@ -149,9 +118,6 @@ public class Dataset {
     }
     public void addUnitRow(UnitRow unitRow){
         this.setUnitRow(unitRow);
-    }
-    public int getNumberOfClusters(){
-        return numberOfClusters;
     }
     public void setNumberOfClusters(int numberOfClusters){
         this.numberOfClusters = numberOfClusters;
