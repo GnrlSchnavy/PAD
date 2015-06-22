@@ -1,69 +1,67 @@
-package A4;
+package A5;
 
-import ui.UIAuxiliaryMethods;
-
+import ui.*;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 
 public class Clustering{
 
+    private final int SCREEN_HEIGHT = 600;
+    private final int SCREEN_WIDTH = 600;
     ClusterRow clusterRow;
     PrintStream out;
     Unit unit;
     UnitRow unitRow;
     Dataset dataSet;
     NumberRow numberRow;
+    View view;
+    DrawUserInterface ui;
+    Colour black;
+
+
+
     Clustering(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
+        ui = UserInterfaceFactory.getDrawUI(SCREEN_HEIGHT, SCREEN_WIDTH);
+        black = new Colour(0,0,0);
     }
     private void start()  {
+
         prerequisities();
         normalizationAndPreselection();
         ClusterRow clusterRow = new ClusterRow(dataSet);
-//        Euclidean distanceEuclidean = new Euclidean();
-//        Manhattan distanceManhattan = new Manhattan();
-//        Pearson distancePearson = new Pearson();
-
-//        System.out.println("Eucledian " + distanceEuclidean.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
-//        System.out.println("Manhattan " + distanceManhattan.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
-//        System.out.println("Pearson " + distancePearson.calculateDistance(dataSet.getUnitRow().getUnit(0), dataSet.getUnitRow().getUnit(1)));
-
-
-        CompleteLinkage completeLinkage = new CompleteLinkage(new Euclidean());
-        System.out.println(completeLinkage.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1)));
-        AverageLinkage averageLinkage = new AverageLinkage(new Euclidean());
-        System.out.println(averageLinkage.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-        SingleLinkage singleLinkage = new SingleLinkage(new Euclidean());
-        System.out.println(singleLinkage.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-
-        CompleteLinkage completeLinkage1 = new CompleteLinkage(new Manhattan());
-        System.out.println(completeLinkage1.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1)));
-        AverageLinkage averageLinkage1 = new AverageLinkage(new Manhattan());
-        System.out.println(averageLinkage1.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-        SingleLinkage singleLinkage1 = new SingleLinkage(new Manhattan());
-        System.out.println(singleLinkage1.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-
-        CompleteLinkage completeLinkage2 = new CompleteLinkage(new Pearson());
-        System.out.println(completeLinkage2.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1))+0.0);
-        AverageLinkage averageLinkage2 = new AverageLinkage(new Pearson());
-        System.out.println(averageLinkage2.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-        SingleLinkage singleLinkage2 = new SingleLinkage(new Pearson());
-        System.out.println(singleLinkage2.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
-
-//
-
-
+        drawGraph(clusterRow);
         //printDataSetToFile(dataSet);
         //printCheck(dataSet);
     }
+
+    private Colour createRandomColor(){
+        int randomR =(int)(Math.random() * 255);
+        int randomG =(int)(Math.random() * 255);
+        int randomB =(int)(Math.random() * 255);
+        Colour rndColour = new Colour(randomR,randomG,randomB);
+        return  rndColour;
+    }
+    private void drawGraph(ClusterRow clusterRow) {
+
+        ui.clear();
+        for (int i = 0; i < clusterRow.getLength(); i++) {
+            System.out.println(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(0) + " " +clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(1));
+            ui.drawCircle((int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(0)*500),(int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(1)*500),5,5,createRandomColor(),true);
+        }
+        ui.showChanges();
+
+    }
+
     private void prerequisities() {
-        System.out.println("running A4");
+        System.out.println("running A5");
         if(!UIAuxiliaryMethods.askUserForInput()){System.exit(0);}
         Scanner file = new Scanner(System.in);
         dataSet = readFile(file);
@@ -106,7 +104,7 @@ public class Clustering{
         }
 
     }
-    public void printDataSetToFile(Dataset toPrintDataSet)  {
+    private void printDataSetToFile(Dataset toPrintDataSet)  {
         PrintWriter writer = null;
 
         try {
@@ -128,10 +126,7 @@ public class Clustering{
     }
     private Dataset readFile(Scanner file){
 
-        dataSet=new Dataset();
-        dataSet.setNumberOfClusters(file.nextInt());
-        dataSet.setNumberOfVariableRows(file.nextInt());
-        dataSet.setNumberOfVariables(file.nextInt());
+        dataSet=new Dataset(file.nextInt(),file.nextInt(),file.nextInt());
         dataSet.setNames(getNames(file));
         unitRow = new UnitRow(dataSet.getNumberOfVariableRows());
         //System.out.println(dataSet.getNumberOfVariableRows());
