@@ -50,7 +50,7 @@ public class Clustering{
         System.out.println(singleLinkage1.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
 
         CompleteLinkage completeLinkage2 = new CompleteLinkage(new Pearson());
-        System.out.println(completeLinkage2.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1))+0.0);
+        System.out.printf("%.6f",completeLinkage2.calculateDistance(clusterRow.getCluster(0),clusterRow.getCluster(1)));
         AverageLinkage averageLinkage2 = new AverageLinkage(new Pearson());
         System.out.println(averageLinkage2.calculateDistance(clusterRow.getCluster(0), clusterRow.getCluster(1)));
         SingleLinkage singleLinkage2 = new SingleLinkage(new Pearson());

@@ -2,18 +2,23 @@ package A5;
 
 public class UnitRow {
 
-    private Unit[] UnitRow;
-    private int length = 0;
+    private Unit[] unitRow;
+    private int length;
+
+    public UnitRow(){
+        length = 0;
+        unitRow = new Unit[length];
+    }
 
     UnitRow(int length){
-        UnitRow=new Unit[length];
+        unitRow =new Unit[length];
     }
     public void addUnit(Unit Unit){
-        UnitRow[length] = Unit;
+        unitRow[length] = Unit;
         length++;
     }
     public Unit getUnit(int i){
-        return UnitRow[i];
+        return unitRow[i];
     }
     public int getLength(){
         return length;
@@ -23,6 +28,6 @@ public class UnitRow {
     }
 
     public void setUnit(int i, Unit unit){
-        UnitRow[i]=unit;
+        unitRow[i]=unit;
     }
 }

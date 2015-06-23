@@ -25,11 +25,10 @@ public class Dataset {
         }
         return toNormalizeDataSet;
     }
-    public UnitRow doPreselection(Dataset normalizedDataSet){
+    public void doPreselection(Dataset normalizedDataSet){
         double [] averageValueRow = addAllNumbers(normalizedDataSet);
         NumberRow standardDeviationRow = calculateStandardDeviationRow(normalizedDataSet,averageValueRow);
         getHighestStandardDeviation(standardDeviationRow,normalizedDataSet);
-        return null;
     }
     private void getHighestStandardDeviation(NumberRow standardDeviationRow, Dataset normalizedDataSet){
         if(standardDeviationRow.getLength()>50){
@@ -128,8 +127,8 @@ public class Dataset {
     public void setUnitRow(UnitRow unitRow){
         this.unitRow = unitRow;
     }
-    public String [] getNames(){
-        return names;
+    public String getNames(int i){
+        return names[i];
     }
     public void setNames(String [] names){
         this.names = names;

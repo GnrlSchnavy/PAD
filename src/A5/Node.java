@@ -6,8 +6,9 @@ package A5;
 public class Node implements Cluster {
 
     Cluster cluster1,cluster2;
-
-    Node(Cluster cluster1, Cluster cluster2){
+    private UnitRow unitRow;
+    public Node(Cluster cluster1, Cluster cluster2){
+        unitRow = new UnitRow();
         this.cluster1= cluster1;
         this.cluster2= cluster2;
     }
