@@ -3,15 +3,10 @@ package A6;
 import ui.Colour;
 import ui.DrawUserInterface;
 
-/**
- * Created by Yvan on 21-6-2015.
- */
 public class Cartasian implements View {
     DrawUserInterface ui;
     private final int SCALE = 500;
     private final int SHIFT = 10;
-    private final int SCREEN_HEIGHT = 600;
-    private final int SCREEN_WIDTH = 600;
     Colour black;
     Dataset d;
     ClusterRow clusterRow;
@@ -43,7 +38,6 @@ public class Cartasian implements View {
                 maxDistance = Math.sqrt(Math.pow(maxY, 2) + Math.pow(maxX, 2));
             }
         }
-//        ui.setCircleHotspot((int) ((averageValueX * SCALE) + SHIFT), (int) ((averageValueY * SCALE) + SHIFT), (int) ((maxDistance * 2)), (int) ((maxDistance * 2)), cluster.getUnits().getUnit(0).getUnitName());
         ui.drawCircle((int) ((averageValueX * SCALE) + SHIFT), (int) ((averageValueY * SCALE) + SHIFT), (int) ((maxDistance * 2)), (int) ((maxDistance * 2)), colour, false);
     }
 
@@ -75,8 +69,7 @@ public class Cartasian implements View {
         int randomR = (int) (Math.random() * 255);
         int randomG = (int) (Math.random() * 255);
         int randomB = (int) (Math.random() * 255);
-        Colour randomColor = new Colour(randomR, randomG, randomB);
-        return randomColor;
+        return new Colour(randomR, randomG, randomB);
     }
 
 
@@ -89,7 +82,6 @@ public class Cartasian implements View {
         ui.clear();
         drawGraphBackground();
         drawGraph(clusterRow);
-//        drawCircles(clusterRow);
         drawNames(d);
         ui.showChanges();
     }

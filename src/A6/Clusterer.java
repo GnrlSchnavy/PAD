@@ -68,7 +68,7 @@ public class Clusterer{
         handleUserClusteringDistance(distanceMeasure, clusteringMethod);
     }
     private void prerequisities() {
-        System.out.println("running A5");
+        System.out.println("running A6");
         if(!UIAuxiliaryMethods.askUserForInput()){
             exitProgram();}
         Scanner file = new Scanner(System.in);
