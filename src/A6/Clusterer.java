@@ -1,5 +1,6 @@
 package A6;
 
+
 import ui.DrawUserInterface;
 import ui.Event;
 import ui.UIAuxiliaryMethods;
@@ -21,13 +22,9 @@ public class Clusterer{
     DrawUserInterface ui;
     Event event;
     View view;
-    DistanceMeasure distanceMeasure; //this should be adaptable to user input
-    ClusterMethod clusterMethod =new CompleteLinkage(distanceMeasure);//this should be adaptable to user input
+    DistanceMeasure distanceMeasure;
+    ClusterMethod clusterMethod =new CompleteLinkage(distanceMeasure);
 
-
-
-    //to do
-    // */create visual
     Clusterer(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
@@ -55,7 +52,12 @@ public class Clusterer{
                     System.out.println("HandleSpace");
                 }
             }
+            if (event.name.equals("mouseover")){
+                System.out.println(event.data);
+            }
         }
+
+
     }
     private void exitProgram(){
         System.exit(0);
@@ -95,8 +97,6 @@ public class Clusterer{
         dataSet=new Dataset(file.nextInt(),file.nextInt(),file.nextInt());
         dataSet.setNames(getNames(file));
         unitRow = new UnitRow(dataSet.getNumberOfVariableRows());
-        //System.out.println(dataSet.getNumberOfVariableRows());
-        //System.out.println(dataSet.getNumberOfVariables());
 
         for (int i = 0;i<dataSet.getNumberOfVariableRows();i++){
             numberRow = new NumberRow(dataSet.getNumberOfVariables());

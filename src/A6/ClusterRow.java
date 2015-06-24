@@ -26,8 +26,7 @@ public class ClusterRow {
     }
 
     public void cluster(ClusterMethod clusterMethod) {
-
-        if (cluster.length > dataSet.getNumberOfClusters()){
+        if (length > dataSet.getNumberOfClusters()){
             Cluster[] closestClusters = getSmallestDistance(clusterMethod);
             removeClusters(closestClusters);
             addNode(closestClusters);
@@ -35,34 +34,33 @@ public class ClusterRow {
     }
 
     private void addNode(Cluster[] closestClusters) {
-       Node n=new Node(closestClusters[0],closestClusters[1]);
+        Node n=new Node(closestClusters[0],closestClusters[1]);
         addCluster(n);
     }
 
-    private void removeClusters(Cluster [] toRemove) {
-        Cluster [] newClusterRow = new Cluster[cluster.length-1];
+    private void removeClusters(Cluster[] toRemove) {
+
+        Cluster[] newClusterRow = new Cluster[cluster.length-1];
         length-=toRemove.length;
         int placeHolder = 0;
-        for (int i = 0; i < cluster.length ; i++) {
-            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && newClusterRow.length > 1){
+        for (int i = 0; i < cluster.length; i++) {
+            if(toRemove[0]!= cluster[i] & toRemove[1]!=cluster[i] & cluster[0] != cluster[1]){
                 newClusterRow[placeHolder] = cluster[i];
                 placeHolder++;
             }
-
         }
-
         cluster= newClusterRow;
     }
 
-    public Cluster [] getSmallestDistance(ClusterMethod clusterMethod) {
+    public Cluster[] getSmallestDistance(ClusterMethod clusterMethod) {
         double minDistance = Double.MAX_VALUE;
         double distance;
-        Cluster [] closestClusters = new Cluster[2];
+        Cluster[] closestClusters = new Cluster[2];
         for (int i = 0; i < cluster.length; i++) {
             for (int j = 0; j < cluster.length; j++) {
                 if (cluster[i] != cluster[j]) {
                     distance = clusterMethod.calculateDistance(cluster[i], cluster[j]);
-                    if(distance < minDistance && distance!= 0){
+                    if(distance < minDistance ){
                         minDistance = distance;
                         closestClusters[0] = cluster[i];
                         closestClusters[1] = cluster[j];

@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="libUI">
+  <library name="libUI(1)">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/libUI.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libUI(1).jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
