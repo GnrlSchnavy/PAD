@@ -1,5 +1,8 @@
-package A5;
-import ui.*;
+package A6;
+
+import ui.Colour;
+import ui.DrawUserInterface;
+
 /**
  * Created by Yvan on 21-6-2015.
  */
@@ -15,7 +18,7 @@ public class Cartasian implements View {
 
 
 
-    Cartasian(DrawUserInterface ui, Dataset d,ClusterRow clusterRow) {
+    Cartasian(DrawUserInterface ui, Dataset d, ClusterRow clusterRow) {
         this.ui = ui;
         black = new Colour(0, 0, 0);
         this.d = d;

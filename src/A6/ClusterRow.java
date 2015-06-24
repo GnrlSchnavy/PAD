@@ -1,6 +1,4 @@
-package A5;
-
-import java.util.Arrays;
+package A6;
 
 public class ClusterRow {
 
@@ -28,7 +26,7 @@ public class ClusterRow {
     }
 
     public void cluster(ClusterMethod clusterMethod) {
-        System.out.println("startcluster" + cluster.length);
+
         if (cluster.length > dataSet.getNumberOfClusters()){
             Cluster[] closestClusters = getSmallestDistance(clusterMethod);
             removeClusters(closestClusters);
@@ -42,14 +40,11 @@ public class ClusterRow {
     }
 
     private void removeClusters(Cluster [] toRemove) {
-
         Cluster [] newClusterRow = new Cluster[cluster.length-1];
-        //System.out.println("deletclusternew " + newClusterRow.length + " deletclusterold " + cluster.length );
         length-=toRemove.length;
         int placeHolder = 0;
-        for (int i = 0; i < cluster.length; i++) {
-            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i]){
-                System.out.println(i);
+        for (int i = 0; i < cluster.length ; i++) {
+            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && newClusterRow.length > 1){
                 newClusterRow[placeHolder] = cluster[i];
                 placeHolder++;
             }
