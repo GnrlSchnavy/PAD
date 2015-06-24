@@ -22,8 +22,9 @@ public class Clusterer{
     Dataset dataSet;
     NumberRow numberRow;
     View view;
-    DrawUserInterface ui;
+    public DrawUserInterface ui;
     Colour black;
+    Event event;
 
     DistanceMeasure distanceMeasure = new Manhattan(); //this should be adaptable to user input
     ClusterMethod clusterMethod =new CompleteLinkage(distanceMeasure);//this should be adaptable to user input
@@ -42,26 +43,42 @@ public class Clusterer{
         normalizationAndPreselection();
         ClusterRow clusterRow = new ClusterRow(dataSet);
         drawGraph(clusterRow);
-        for (int i = 0; i <29 ; i++) {
-            clusterRow.cluster(clusterMethod);
-            drawGraph(clusterRow);
+
+        while(true){
+        event = ui.getEvent();
+            handleEvents(event);
         }
     }
 
+    private void handleEvents(Event event) {
+        if(event.name.equals("other_key")){
+           if(event.data.equals("Escape")){
+               exitProgram();
+           }
+            if(event.data.equals("Space")){
+                System.out.println("HandleSpace");
+                clusterRow.cluster(clusterMethod);
+            }
+        }
+
+    }
 
 
     private void drawGraph(ClusterRow clusterRow) {
         for (int i = 0; i < clusterRow.getLength(); i++) {
-//            System.out.println(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(0) + " " +clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(1));
             ui.drawCircle((int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(0)*500)+10,(int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(1)*500)+10,10,10,createRandomColor(),true);
             ui.drawCircle((int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(0)*500)+10,(int)(clusterRow.getCluster(i).getUnits().getUnit(0).getNumberRow().getValues(1)*500)+10,10,10,black,false);
 
         }
         ui.showChanges();
     }
+    private void exitProgram(){
+        System.exit(0);
+    }
     private void prerequisities() {
         System.out.println("running A5");
-        if(!UIAuxiliaryMethods.askUserForInput()){System.exit(0);}
+        if(!UIAuxiliaryMethods.askUserForInput()){
+            exitProgram();}
         Scanner file = new Scanner(System.in);
         dataSet = readFile(file);
         drawGraphBackground();

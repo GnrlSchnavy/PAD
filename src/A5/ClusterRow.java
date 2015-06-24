@@ -26,7 +26,6 @@ public class ClusterRow {
         Cluster [] closestClusters = getSmallestDistance(clusterMethod);
         removeClusters(closestClusters);
         addNode(closestClusters);
-
     }
 
     private void addNode(Cluster[] closestClusters) {
@@ -41,6 +40,7 @@ public class ClusterRow {
         for (int i = 0; i < cluster.length ; i++) {
             if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && newClusterRow.length>1){
                 newClusterRow[placeHolder] = cluster[i];
+
                 placeHolder++;
             }
 

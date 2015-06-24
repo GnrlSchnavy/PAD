@@ -5,8 +5,9 @@ package A5;
  */
 public class Cartasian implements View {
 
-    @Override
+
     public void draw(ClusterRow clusters) {
+
 
     }
 }
