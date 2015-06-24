@@ -26,7 +26,7 @@ public class Clusterer{
     Colour black;
     Event event;
 
-    DistanceMeasure distanceMeasure = new Manhattan(); //this should be adaptable to user input
+    DistanceMeasure distanceMeasure; //this should be adaptable to user input
     ClusterMethod clusterMethod =new CompleteLinkage(distanceMeasure);//this should be adaptable to user input
 
 
@@ -41,23 +41,40 @@ public class Clusterer{
 
         prerequisities();
         normalizationAndPreselection();
+        pickDistanceMeasures();
         ClusterRow clusterRow = new ClusterRow(dataSet);
         drawGraph(clusterRow);
+        clusterRow.cluster(clusterMethod);
 
-        while(true){
-        event = ui.getEvent();
-            handleEvents(event);
+
+    }
+
+    private void pickDistanceMeasures() {
+        String  clusteringMethod = UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
+        String distanceMeasure = UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
+        handleUserClusteringDistance(distanceMeasure, clusteringMethod);
+    }
+
+    private void handleUserClusteringDistance(String distanceMeasureString, String clusteringMethodString) {
+        switch(distanceMeasureString){
+            case "Euclidean": distanceMeasure = new Euclidean();break;
+            case "Manhattan": distanceMeasure = new Manhattan();break;
+            case "Pearson": distanceMeasure = new Pearson();break;
+        }
+        switch(clusteringMethodString){
+            case "AverageLinkage": clusterMethod = new AverageLinkage(distanceMeasure);break;
+            case "CompleteLinkage": clusterMethod = new CompleteLinkage(distanceMeasure);break;
+            case "SingleLinkage": clusterMethod = new SingleLinkage(distanceMeasure);break;
         }
     }
 
     private void handleEvents(Event event) {
         if(event.name.equals("other_key")){
-           if(event.data.equals("Escape")){
-               exitProgram();
-           }
+            if(event.data.equals("Escape")){
+                exitProgram();
+            }
             if(event.data.equals("Space")){
                 System.out.println("HandleSpace");
-                clusterRow.cluster(clusterMethod);
             }
         }
 
