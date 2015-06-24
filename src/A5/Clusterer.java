@@ -22,7 +22,7 @@ public class Clusterer{
     Dataset dataSet;
     NumberRow numberRow;
     View view;
-    public DrawUserInterface ui;
+    public static DrawUserInterface ui;
     Colour black;
     Event event;
 
@@ -31,6 +31,8 @@ public class Clusterer{
 
 
 
+    //to do
+    // */create visua
     Clusterer(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
@@ -45,27 +47,6 @@ public class Clusterer{
         ClusterRow clusterRow = new ClusterRow(dataSet);
         drawGraph(clusterRow);
         clusterRow.cluster(clusterMethod);
-
-
-    }
-
-    private void pickDistanceMeasures() {
-        String  clusteringMethod = UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
-        String distanceMeasure = UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
-        handleUserClusteringDistance(distanceMeasure, clusteringMethod);
-    }
-
-    private void handleUserClusteringDistance(String distanceMeasureString, String clusteringMethodString) {
-        switch(distanceMeasureString){
-            case "Euclidean": distanceMeasure = new Euclidean();break;
-            case "Manhattan": distanceMeasure = new Manhattan();break;
-            case "Pearson": distanceMeasure = new Pearson();break;
-        }
-        switch(clusteringMethodString){
-            case "AverageLinkage": clusterMethod = new AverageLinkage(distanceMeasure);break;
-            case "CompleteLinkage": clusterMethod = new CompleteLinkage(distanceMeasure);break;
-            case "SingleLinkage": clusterMethod = new SingleLinkage(distanceMeasure);break;
-        }
     }
 
     private void handleEvents(Event event) {
@@ -92,6 +73,11 @@ public class Clusterer{
     private void exitProgram(){
         System.exit(0);
     }
+    private void pickDistanceMeasures() {
+        String  clusteringMethod = UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
+        String distanceMeasure = UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
+        handleUserClusteringDistance(distanceMeasure, clusteringMethod);
+    }
     private void prerequisities() {
         System.out.println("running A5");
         if(!UIAuxiliaryMethods.askUserForInput()){
@@ -105,7 +91,18 @@ public class Clusterer{
         NumberRow minimumValues = dataSet.calculateMinimum();
         dataSet.normalize(dataSet, maximumValues, minimumValues);
         dataSet.doPreselection(dataSet);
-
+    }
+    private void handleUserClusteringDistance(String distanceMeasureString, String clusteringMethodString) {
+        switch(distanceMeasureString){
+            case "Euclidean": distanceMeasure = new Euclidean();break;
+            case "Manhattan": distanceMeasure = new Manhattan();break;
+            case "Pearson": distanceMeasure = new Pearson();break;
+        }
+        switch(clusteringMethodString){
+            case "AverageLinkage": clusterMethod = new AverageLinkage(distanceMeasure);break;
+            case "CompleteLinkage": clusterMethod = new CompleteLinkage(distanceMeasure);break;
+            case "SingleLinkage": clusterMethod = new SingleLinkage(distanceMeasure);break;
+        }
     }
     private Colour createRandomColor(){
         int randomR = (int)(Math.random()*255);
