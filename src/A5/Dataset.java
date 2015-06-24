@@ -15,6 +15,9 @@ public class Dataset {
         this.numberOfVariableRows = numberOfVariableRows;
         this.numberOfVariables = numberOfVariables;
     }
+    public int getNumberOfClusters(){
+        return numberOfClusters;
+    }
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){

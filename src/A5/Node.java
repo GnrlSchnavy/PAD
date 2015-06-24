@@ -1,11 +1,14 @@
 package A5;
 
+import ui.Colour;
+
 /**
  * Created by Yvan on 8-6-2015.
  */
 public class Node implements Cluster {
 
     Cluster cluster1,cluster2;
+    Colour colour;
     private UnitRow unitRow;
     public Node(Cluster cluster1, Cluster cluster2){
         unitRow = new UnitRow();
@@ -33,6 +36,12 @@ public class Node implements Cluster {
             combinedUniteRow.addUnit(unitRow2.getUnit(i));
         }
         return combinedUniteRow;
+    }
+    public Colour getColour(){
+        return colour;
+    }
+    public void setColour(Colour colour){
+        this.colour = colour;
     }
 
     public boolean hasChildren() {

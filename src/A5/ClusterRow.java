@@ -4,10 +4,13 @@ public class ClusterRow {
 
     int length =0;
     private Cluster[] cluster;
+    Dataset dataSet;
 
     public ClusterRow(Dataset dataSet){
         cluster = new Cluster[dataSet.getNumberOfVariableRows()];
         createLeafes(dataSet);
+        this.dataSet = dataSet;
+
     }
 
 
@@ -22,10 +25,13 @@ public class ClusterRow {
         length++;
     }
 
-    public void cluster(ClusterMethod clusterMethod){
-        Cluster [] closestClusters = getSmallestDistance(clusterMethod);
-        removeClusters(closestClusters);
-        addNode(closestClusters);
+    public void cluster(ClusterMethod clusterMethod) {
+
+        if (cluster.length > dataSet.getNumberOfClusters()){
+            Cluster[] closestClusters = getSmallestDistance(clusterMethod);
+            removeClusters(closestClusters);
+            addNode(closestClusters);
+        }
     }
 
     private void addNode(Cluster[] closestClusters) {
@@ -38,9 +44,8 @@ public class ClusterRow {
         length-=toRemove.length;
         int placeHolder = 0;
         for (int i = 0; i < cluster.length ; i++) {
-            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && newClusterRow.length>1){
+            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && newClusterRow.length > 1){
                 newClusterRow[placeHolder] = cluster[i];
-
                 placeHolder++;
             }
 

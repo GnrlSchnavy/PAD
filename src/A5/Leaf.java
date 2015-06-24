@@ -1,11 +1,14 @@
 package A5;
 
+import ui.Colour;
+
 /**
  * Created by Yvan on 8-6-2015.
  */
 public class Leaf implements Cluster {
 
     Unit unit;
+    Colour colour;
 
     Leaf(Unit unit){
         this.unit = unit;
@@ -24,6 +27,14 @@ public class Leaf implements Cluster {
         unitRow.addUnit(this.unit);
         return unitRow;
     }
+
+    public Colour getColour(){
+        return colour;
+    }
+    public void setColour(Colour colour){
+        this.colour = colour;
+    }
+
 
     public boolean hasChildren() {
         return false;
