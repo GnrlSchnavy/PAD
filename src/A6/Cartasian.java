@@ -5,21 +5,22 @@ import ui.DrawUserInterface;
 
 public class Cartasian implements View {
     DrawUserInterface ui;
-    private final int SCALE = 500;
-    private final int SHIFT = 10;
-    Colour black;
     Dataset d;
     ClusterRow clusterRow;
+    Colour black;
+    private final int SCALE = 500;
+    private final int SHIFT = 10;
+
 
 
     Cartasian(DrawUserInterface ui, Dataset d, ClusterRow clusterRow) {
         this.ui = ui;
-        black = new Colour(0, 0, 0);
         this.d = d;
         this.clusterRow = clusterRow;
+        black = new Colour(0, 0, 0);
     }
 
-    private void drawCircles2(Cluster cluster, Colour colour) {
+    private void drawCircles(Cluster cluster, Colour colour) {
         double sumX = 0;
         double sumY = 0;
         double maxX;
@@ -51,7 +52,7 @@ public class Cartasian implements View {
 
             }
             if (clusterRow.getCluster(i).hasChildren()) {
-                drawCircles2(clusterRow.getCluster(i),c);
+                drawCircles(clusterRow.getCluster(i),c);
             }
 
         }

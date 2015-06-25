@@ -27,4 +27,6 @@ public interface Cluster {
 	 * 			false: if this cluster has no children.
 	 */
 	boolean hasChildren();
+
+
 }

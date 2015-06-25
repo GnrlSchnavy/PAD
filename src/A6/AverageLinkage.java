@@ -17,6 +17,6 @@ public class AverageLinkage implements ClusterMethod {
                 numberOfLoops++;
             }
         }
-        return sumDistance/(numberOfLoops);//getWitdh?
+        return sumDistance/(numberOfLoops);
     }
 }

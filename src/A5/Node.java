@@ -44,6 +44,14 @@ public class Node implements Cluster {
         this.colour = colour;
     }
 
+    public Cluster getLeftChild(){
+        return cluster1;
+    }
+    public Cluster getRightChild(){
+        return cluster2;
+    }
+
+
     public boolean hasChildren() {
         return true;
     }

@@ -5,7 +5,6 @@ import ui.DrawUserInterface;
 import ui.Event;
 import ui.UIAuxiliaryMethods;
 import ui.UserInterfaceFactory;
-
 import java.io.PrintStream;
 import java.util.Locale;
 import java.util.Scanner;
@@ -23,7 +22,7 @@ public class Clusterer{
     Event event;
     View view;
     DistanceMeasure distanceMeasure;
-    ClusterMethod clusterMethod =new CompleteLinkage(distanceMeasure);
+    ClusterMethod clusterMethod;
 
     Clusterer(){
         out = new PrintStream(System.out);
@@ -33,12 +32,10 @@ public class Clusterer{
     private void start() {
         prerequisities();
         normalizationAndPreselection();
-        pickDistanceMeasures();
         clusterRow = new ClusterRow(dataSet);
-        view = new Cartasian(ui,dataSet, clusterRow);
+        pickDistanceMeasures();
         handleEvents();
     }
-
     private void handleEvents() {
         while (true) {
             event=ui.getEvent();
@@ -49,7 +46,6 @@ public class Clusterer{
                 if (event.data.equals("Space")) {
                     clusterRow.cluster(clusterMethod);
                     view.draw(clusterRow);
-                    System.out.println("HandleSpace");
                 }
             }
             if (event.name.equals("mouseover")){
@@ -65,7 +61,8 @@ public class Clusterer{
     private void pickDistanceMeasures() {
         String  clusteringMethod = UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
         String distanceMeasure = UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
-        handleUserClusteringDistance(distanceMeasure, clusteringMethod);
+        String viewMethod = UIAuxiliaryMethods.askUserForChoice("Choose view method", "Dendogram","Cartasian");
+        handleUserClusteringDistance(distanceMeasure, clusteringMethod,viewMethod);
     }
     private void prerequisities() {
         System.out.println("running A6");
@@ -80,7 +77,7 @@ public class Clusterer{
         dataSet.normalize(dataSet, maximumValues, minimumValues);
         dataSet.doPreselection(dataSet);
     }
-    private void handleUserClusteringDistance(String distanceMeasureString, String clusteringMethodString) {
+    private void handleUserClusteringDistance(String distanceMeasureString, String clusteringMethodString, String viewMethod) {
         switch(distanceMeasureString){
             case "Euclidean": distanceMeasure = new Euclidean();break;
             case "Manhattan": distanceMeasure = new Manhattan();break;
@@ -90,6 +87,10 @@ public class Clusterer{
             case "AverageLinkage": clusterMethod = new AverageLinkage(distanceMeasure);break;
             case "CompleteLinkage": clusterMethod = new CompleteLinkage(distanceMeasure);break;
             case "SingleLinkage": clusterMethod = new SingleLinkage(distanceMeasure);break;
+        }
+        switch(viewMethod){
+            case "Dendogram":view = new Dendogram(ui,dataSet,clusterRow);break;
+            case "Cartasian":view = new Cartasian(ui,dataSet,clusterRow);break;
         }
     }
     private Dataset readFile(Scanner file){

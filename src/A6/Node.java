@@ -17,7 +17,7 @@ public class Node implements Cluster {
     }
 
     public int getDepth() {
-        return Math.max(cluster1.getDepth(),cluster2.getDepth())+1;
+        return Math.max(cluster1.getDepth(), cluster2.getDepth())+1;
     }
 
     public int getWidth() {
@@ -46,5 +46,13 @@ public class Node implements Cluster {
 
     public boolean hasChildren() {
         return true;
+    }
+
+    public Cluster getLeftChild() {
+        return cluster1;
+    }
+
+    public Cluster getRightChild() {
+        return cluster2;
     }
 }
