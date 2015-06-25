@@ -4,28 +4,21 @@ import ui.Colour;
 import ui.DrawUserInterface;
 
 public class Dendogram implements View {
-    DrawUserInterface ui;
-    Dataset d;
-    ClusterRow clusterRow;
+    private DrawUserInterface ui;
+    private Dataset d;
+    private ClusterRow clusterRow;
     private final int XVALUE = 520;
-    Colour black = new Colour(0, 0, 0);
-
+    private final int YINCREASE = 19;
+    private  int YSTART;
+    private final int CIRCLEOFFSET = 8;
+    private final int LONGLINE = 50;
+    private final int CIRCLERADIUS = 10;
+    private Colour black = new Colour(0, 0, 0);
 
     Dendogram(DrawUserInterface ui, Dataset d, ClusterRow clusterRow) {
         this.ui = ui;
         this.d = d;
         this.clusterRow = clusterRow;
-    }
-
-    private void drawDendogram(ClusterRow clusterRow) {
-        int yValue = 10;
-        for (int i = 0; i <= clusterRow.length; i++) {
-            ui.drawText(XVALUE, yValue, d.getUnitRow().getUnit(i).getUnitName(), black);
-            ui.drawCircle(XVALUE - 8, yValue + 5, 10, 10, createRandomColor(), true);
-            ui.drawLine(50, yValue + 5, XVALUE - 14, yValue + 5, black);
-            yValue += 19;
-        }
-
     }
 
     private Colour createRandomColor() {
@@ -35,32 +28,32 @@ public class Dendogram implements View {
         return new Colour(randomR, randomG, randomB);
     }
 
-
-    private void drawDendogram2(Cluster cluster) {
+    private void drawDendogram2(Cluster cluster,Colour colour) {
         if (cluster.hasChildren()) {
-            drawDendogram2(((Node) cluster).getLeftChild());
-            drawDendogram2(((Node) cluster).getRightChild());
-
+            drawDendogram2(((Node) cluster).getLeftChild(),colour);
+            drawDendogram2(((Node) cluster).getRightChild(),colour);
+            ui.printf("cluster");
             //drawshit here
         }
-        if (!cluster.hasChildren()) {
-            drawLeaf(cluster);
+        else {
+            drawLeaf(cluster,colour);
         }
-
     }
 
-    private void drawLeaf(Cluster cluster) {
-        int yValue = 10;
-        ui.drawText(XVALUE, yValue, cluster.getUnits().getUnit(0).getUnitName(), black);
-        ui.drawCircle(XVALUE - 8, yValue + 5, 10, 10, createRandomColor(), true);
-        ui.drawLine(50, yValue + 5, XVALUE - 14, yValue + 5, black);
+    private void drawLeaf(Cluster cluster,Colour colour) {
+        ui.drawText(XVALUE, YSTART, cluster.getUnits().getUnit(0).getUnitName(), black);
+        ui.drawCircle(XVALUE - CIRCLEOFFSET, YSTART + 5, CIRCLERADIUS, CIRCLERADIUS, colour, true);
+        ui.drawLine(LONGLINE, YSTART + 5, XVALUE - 14, YSTART + 5, black);
+        YSTART += YINCREASE;
     }
-
 
     public void draw(ClusterRow clusters) {
-//    drawDendogram(clusters);
+        ui.clearStatusBar();
+        ui.clear();
+        YSTART = 10;
         for (int i = 0; i < clusterRow.getLength(); i++) {
-            drawDendogram2(clusterRow.getCluster(i));
+            Colour c = createRandomColor();
+            drawDendogram2(clusterRow.getCluster(i),c);
         }
         ui.showChanges();
     }

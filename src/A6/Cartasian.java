@@ -49,7 +49,6 @@ public class Cartasian implements View {
                 ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, c, true);
                 ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, black, false);
                 ui.setCircleHotspot((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) ((clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1)) * SCALE) +SHIFT,10,10, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
-
             }
             if (clusterRow.getCluster(i).hasChildren()) {
                 drawCircles(clusterRow.getCluster(i),c);

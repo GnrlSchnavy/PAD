@@ -24,6 +24,7 @@ public class Clusterer{
     DistanceMeasure distanceMeasure;
     ClusterMethod clusterMethod;
 
+
     Clusterer(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
@@ -34,6 +35,8 @@ public class Clusterer{
         normalizationAndPreselection();
         clusterRow = new ClusterRow(dataSet);
         pickDistanceMeasures();
+        view.draw(clusterRow);
+
         handleEvents();
     }
     private void handleEvents() {
@@ -49,11 +52,10 @@ public class Clusterer{
                 }
             }
             if (event.name.equals("mouseover")){
-                System.out.println(event.data);
+                ui.clearStatusBar();
+                ui.printf(event.data);
             }
         }
-
-
     }
     private void exitProgram(){
         System.exit(0);
