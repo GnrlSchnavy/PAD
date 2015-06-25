@@ -1,10 +1,6 @@
 package A6;
 
-/**
- * Created by Yvan on 17-6-2015.
- */
 public class Pearson implements DistanceMeasure {
-
     public double calculateDistance(Unit unit1, Unit unit2){
         int length = Math.min(unit1.getNumberRow().getLength(),50);
         double [] averageValue = new double[2];
@@ -36,6 +32,4 @@ public class Pearson implements DistanceMeasure {
         }
         return (1.0/(length-1))*total;
     }
-
-
 }

@@ -12,17 +12,17 @@ import java.util.Scanner;
 
 public class Clusterer{
 
-    ClusterRow clusterRow;
-    PrintStream out;
-    Unit unit;
-    UnitRow unitRow;
-    Dataset dataSet;
-    NumberRow numberRow;
-    DrawUserInterface ui;
-    Event event;
-    View view;
-    DistanceMeasure distanceMeasure;
-    ClusterMethod clusterMethod;
+    private ClusterRow clusterRow;
+    private PrintStream out;
+    private Unit unit;
+    private UnitRow unitRow;
+    private Dataset dataSet;
+    private NumberRow numberRow;
+    private DrawUserInterface ui;
+    private Event event;
+    private View view;
+    private DistanceMeasure distanceMeasure;
+    private ClusterMethod clusterMethod;
 
 
     Clusterer(){

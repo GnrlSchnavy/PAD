@@ -30,12 +30,13 @@ public class Dendogram implements View {
 
     private void drawDendogram2(Cluster cluster,Colour colour) {
         if (cluster.hasChildren()) {
-            drawDendogram2(((Node) cluster).getLeftChild(),colour);
-            drawDendogram2(((Node) cluster).getRightChild(),colour);
-            ui.printf("cluster");
-            //drawshit here
-        }
-        else {
+            drawDendogram2(((Node) cluster).getLeftChild(), colour);
+            drawDendogram2(((Node) cluster).getRightChild(), colour);
+
+            ui.drawCircle((int) (500 / ((cluster.getDepth() + 1) / 1.5)), YSTART, CIRCLERADIUS, CIRCLERADIUS, colour, true);
+
+
+        } else {
             drawLeaf(cluster,colour);
         }
     }
@@ -45,6 +46,7 @@ public class Dendogram implements View {
         ui.drawCircle(XVALUE - CIRCLEOFFSET, YSTART + 5, CIRCLERADIUS, CIRCLERADIUS, colour, true);
         ui.drawLine(LONGLINE, YSTART + 5, XVALUE - 14, YSTART + 5, black);
         YSTART += YINCREASE;
+        ((Leaf) cluster).setCoordinates(XVALUE - CIRCLEOFFSET,YSTART + 5);
     }
 
     public void draw(ClusterRow clusters) {

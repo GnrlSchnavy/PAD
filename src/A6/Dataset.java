@@ -8,16 +8,14 @@ public class Dataset {
     private int numberOfVariableRows;
     private int numberOfVariables;
     private UnitRow unitRow;
-    private String[]names = new String[getNumberOfVariables()];//-1????
+    private String[]names = new String[getNumberOfVariables()];
 
     Dataset(int numberOfClusters, int numberOfVariableRows, int numberOfVariables){
         this.numberOfClusters = numberOfClusters;
         this.numberOfVariableRows = numberOfVariableRows;
         this.numberOfVariables = numberOfVariables;
     }
-    public int getNumberOfClusters(){
-        return numberOfClusters;
-    }
+
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){
@@ -69,7 +67,7 @@ public class Dataset {
             for (int j = 0;j<normalizedDataSet.getUnitRow().getLength();j++){
                 sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getNumberRow().getValues(i)-averageValueRow[i],2);
             }
-            standardDeviationRow.addValue(Math.sqrt((sum/(normalizedDataSet.numberOfVariableRows*normalizedDataSet.numberOfVariables))));
+            standardDeviationRow.addValue(Math.sqrt((sum / (normalizedDataSet.numberOfVariableRows * normalizedDataSet.numberOfVariables))));
 //            standardDeviationRow.addValue(Math.sqrt((sum/(normalizedDataSet.numberOfVariableRows-1))));
             //Have to decide which one is right
         }
@@ -114,6 +112,9 @@ public class Dataset {
     }
     public void addUnitRow(UnitRow unitRow){
         this.setUnitRow(unitRow);
+    }
+    public int getNumberOfClusters(){
+        return numberOfClusters;
     }
     public void setNumberOfClusters(int numberOfClusters){
         this.numberOfClusters = numberOfClusters;

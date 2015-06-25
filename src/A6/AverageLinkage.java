@@ -1,13 +1,10 @@
 package A6;
 
 public class AverageLinkage implements ClusterMethod {
-
     private DistanceMeasure distanceMeasure;
-
     AverageLinkage(DistanceMeasure distanceMeasure) {
         this.distanceMeasure = distanceMeasure;
     }
-
     public double calculateDistance(Cluster cluster1, Cluster cluster2) {
         int numberOfLoops = 0;
         double sumDistance = 0;

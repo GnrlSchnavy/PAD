@@ -1,13 +1,10 @@
 package A6;
 
 public class SingleLinkage implements ClusterMethod {
-
     private DistanceMeasure distanceMeasure;
-
     SingleLinkage(DistanceMeasure distanceMeasure) {
         this.distanceMeasure = distanceMeasure;
     }
-
     public double calculateDistance(Cluster cluster1, Cluster cluster2) {
         double distance;
         double minDistance = Double.MAX_VALUE;

@@ -1,11 +1,6 @@
 package A6;
 
 public class Euclidean implements DistanceMeasure {
-
-    /**
-     * Created by Yvan on 17-6-2015.
-     */
-
     public double calculateDistance(Unit unit1, Unit unit2){
         int length = Math.min(unit1.getNumberRow().getLength(), 50);
         double distance = 0;

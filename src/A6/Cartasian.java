@@ -4,22 +4,18 @@ import ui.Colour;
 import ui.DrawUserInterface;
 
 public class Cartasian implements View {
-    DrawUserInterface ui;
-    Dataset d;
-    ClusterRow clusterRow;
-    Colour black;
+    private DrawUserInterface ui;
+    private Dataset d;
+    private ClusterRow clusterRow;
+    private Colour black;
     private final int SCALE = 500;
     private final int SHIFT = 10;
-
-
-
     Cartasian(DrawUserInterface ui, Dataset d, ClusterRow clusterRow) {
         this.ui = ui;
         this.d = d;
         this.clusterRow = clusterRow;
         black = new Colour(0, 0, 0);
     }
-
     private void drawCircles(Cluster cluster, Colour colour) {
         double sumX = 0;
         double sumY = 0;
@@ -41,7 +37,6 @@ public class Cartasian implements View {
         }
         ui.drawCircle((int) ((averageValueX * SCALE) + SHIFT), (int) ((averageValueY * SCALE) + SHIFT), (int) ((maxDistance * 2)), (int) ((maxDistance * 2)), colour, false);
     }
-
     private void drawGraph(ClusterRow clusterRow) {
         for (int i = 0; i < clusterRow.getLength(); i++) {
             Colour c = createRandomColor();
@@ -56,28 +51,22 @@ public class Cartasian implements View {
 
         }
     }
-
-
     private void drawGraphBackground() {
         ui.drawLine(10, 10, 10, 500, black);
         ui.drawLine(10, 10, 500, 10, black);
         ui.showChanges();
 
     }
-
     private Colour createRandomColor() {
         int randomR = (int) (Math.random() * 255);
         int randomG = (int) (Math.random() * 255);
         int randomB = (int) (Math.random() * 255);
         return new Colour(randomR, randomG, randomB);
     }
-
-
     private void drawNames(Dataset d) {
         ui.drawText(10, 505, d.getNames(2), black);
         ui.drawText(480, 0, d.getNames(1), black);
     }
-
     public void draw(ClusterRow clusters) {
         ui.clear();
         drawGraphBackground();

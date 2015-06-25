@@ -4,12 +4,10 @@ public class UnitRow {
 
     private Unit[] unitRow;
     private int length;
-
-    public UnitRow(){
+    UnitRow(){
         length = 0;
         unitRow = new Unit[length];
     }
-
     UnitRow(int length){
         unitRow =new Unit[length];
     }
