@@ -21,7 +21,8 @@ public class Leaf implements Cluster {
     public boolean hasChildren() {
         return false;
     }
-    public void setCoordinates(int x,int y){
+
+   public void setCoordinates(int x,int y){
         this.coordinates[0] = x;
         this.coordinates[1] = y;
     }

@@ -28,7 +28,7 @@ public class Clusterer{
     Clusterer(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
-        ui = UserInterfaceFactory.getDrawUI(600,600);
+        ui = UserInterfaceFactory.getDrawUI(800,800);
     }
     private void start() {
         prerequisities();
@@ -36,7 +36,6 @@ public class Clusterer{
         clusterRow = new ClusterRow(dataSet);
         pickDistanceMeasures();
         view.draw(clusterRow);
-
         handleEvents();
     }
     private void handleEvents() {

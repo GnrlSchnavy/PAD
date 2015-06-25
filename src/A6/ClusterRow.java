@@ -14,7 +14,7 @@ public class ClusterRow {
     }
     private void createLeafes(Dataset dataSet){
         for (int i = 0; i < dataSet.getNumberOfVariableRows(); i++) {
-            Leaf leaf = new Leaf(dataSet.getUnitRow().getUnit(i));
+            Cluster leaf = new Leaf(dataSet.getUnitRow().getUnit(i));//changed leaf to cluster
             addCluster(leaf);
         }
     }
