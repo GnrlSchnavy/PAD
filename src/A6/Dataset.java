@@ -19,13 +19,13 @@ public class Dataset {
     public Dataset normalize(Dataset toNormalizeDataSet, NumberRow maximumValues, NumberRow minimumValues){
         for (int i = 0;i<toNormalizeDataSet.getUnitRow().getLength();i++){
             for (int j = 0;j<toNormalizeDataSet.getNumberOfVariables();j++){
-                toNormalizeDataSet.unitRow.getUnit(i).getNumberRow().setValue(j,
-                        (toNormalizeDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) - minimumValues.getValues(j))
-                                /(maximumValues.getValues(j)-minimumValues.getValues(j)));
+                toNormalizeDataSet.unitRow.getUnit(i).getNumberRow().setValue(j,(toNormalizeDataSet.getUnitRow().getUnit(i).getNumberRow().getValues(j) - minimumValues.getValues(j))
+                /(maximumValues.getValues(j)-minimumValues.getValues(j)));
             }
         }
         return toNormalizeDataSet;
     }
+
     public void doPreselection(Dataset normalizedDataSet){
         double [] averageValueRow = addAllNumbers(normalizedDataSet);
         NumberRow standardDeviationRow = calculateStandardDeviationRow(normalizedDataSet,averageValueRow);
@@ -51,14 +51,12 @@ public class Dataset {
             highestStandardDeviationsIndecies[i]=highestIndexNumber+1;
             standardDeviationRow.setValue(highestIndexNumber,-Double.MAX_VALUE);
         }
-        Arrays.sort(highestStandardDeviationsIndecies);
     }
     private void copyValuesToDataSet(Dataset normalizedDataSet,int copyTo, int copyFrom) {
         for(int i=0;i < normalizedDataSet.getNumberOfVariableRows();i++ ){
             normalizedDataSet.unitRow.getUnit(i).getNumberRow().setValue(copyTo,normalizedDataSet.unitRow.getUnit(i).getNumberRow().getValues(copyFrom));
             normalizedDataSet.names[copyTo]=normalizedDataSet.names[copyFrom+1];
         }
-
     }
     private NumberRow calculateStandardDeviationRow(Dataset normalizedDataSet, double [] averageValueRow){
         NumberRow standardDeviationRow = new NumberRow(normalizedDataSet.getNumberOfVariables());
@@ -68,8 +66,6 @@ public class Dataset {
                 sum+=Math.pow(normalizedDataSet.getUnitRow().getUnit(j).getNumberRow().getValues(i)-averageValueRow[i],2);
             }
             standardDeviationRow.addValue(Math.sqrt((sum / (normalizedDataSet.numberOfVariableRows * normalizedDataSet.numberOfVariables))));
-//            standardDeviationRow.addValue(Math.sqrt((sum/(normalizedDataSet.numberOfVariableRows-1))));
-            //Have to decide which one is right
         }
         return standardDeviationRow;
     }

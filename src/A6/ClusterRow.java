@@ -14,7 +14,7 @@ public class ClusterRow {
     }
     private void createLeafes(Dataset dataSet){
         for (int i = 0; i < dataSet.getNumberOfVariableRows(); i++) {
-            Cluster leaf = new Leaf(dataSet.getUnitRow().getUnit(i));//changed leaf to cluster
+            Cluster leaf = new Leaf(dataSet.getUnitRow().getUnit(i));
             addCluster(leaf);
         }
     }
@@ -39,7 +39,7 @@ public class ClusterRow {
         length-=toRemove.length;
         int placeHolder = 0;
         for (int i = 0; i < cluster.length; i++) {
-            if(toRemove[0]!= cluster[i] & toRemove[1]!=cluster[i] & cluster[0] != cluster[1]){
+            if(toRemove[0]!= cluster[i] && toRemove[1]!=cluster[i] && cluster[0] != cluster[1]){
                 newClusterRow[placeHolder] = cluster[i];
                 placeHolder++;
             }
@@ -70,9 +70,6 @@ public class ClusterRow {
     public void setCluster(Cluster[] cluster){
         this.cluster = cluster;
     }
-//    public void setCluster(int i, Cluster cluster){
-//        this.cluster[i]=cluster;
-//    }
     public int getLength() {
         return length;
     }

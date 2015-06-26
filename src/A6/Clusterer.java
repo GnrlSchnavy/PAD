@@ -20,7 +20,7 @@ public class Clusterer{
     private NumberRow numberRow;
     private DrawUserInterface ui;
     private Event event;
-    private View view;
+    private View view = new Dendogram(ui,clusterRow);
     private DistanceMeasure distanceMeasure;
     private ClusterMethod clusterMethod;
 
@@ -37,6 +37,8 @@ public class Clusterer{
         pickDistanceMeasures();
         view.draw(clusterRow);
         handleEvents();
+
+
     }
     private void handleEvents() {
         while (true) {
@@ -56,7 +58,7 @@ public class Clusterer{
             }
         }
     }
-    private void exitProgram(){
+    public void exitProgram(){
         System.exit(0);
     }
     private void pickDistanceMeasures() {
@@ -90,7 +92,7 @@ public class Clusterer{
             case "SingleLinkage": clusterMethod = new SingleLinkage(distanceMeasure);break;
         }
         switch(viewMethod){
-            case "Dendogram":view = new Dendogram(ui,dataSet,clusterRow);break;
+            case "Dendogram":view = new Dendogram(ui,clusterRow);break;
             case "Cartasian":view = new Cartasian(ui,dataSet,clusterRow);break;
         }
     }

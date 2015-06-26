@@ -41,16 +41,20 @@ public class Cartasian implements View {
         for (int i = 0; i < clusterRow.getLength(); i++) {
             Colour c = createRandomColor();
             for (int j = 0; j < clusterRow.getCluster(i).getUnits().getLength(); j++) {
-                ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, c, true);
-                ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, black, false);
-                ui.setCircleHotspot((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) ((clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1)) * SCALE) +SHIFT,10,10, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
+                drawCluster(i,j,c);
             }
             if (clusterRow.getCluster(i).hasChildren()) {
                 drawCircles(clusterRow.getCluster(i),c);
             }
-
         }
     }
+
+    private void drawCluster(int i, int j,Colour c) {
+        ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, c, true);
+        ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, black, false);
+        ui.setCircleHotspot((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) ((clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1)) * SCALE) +SHIFT,10,10, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
+    }
+
     private void drawGraphBackground() {
         ui.drawLine(10, 10, 10, 500, black);
         ui.drawLine(10, 10, 500, 10, black);
