@@ -36,8 +36,9 @@ public class Cartasian implements View {
                 maxDistance = Math.sqrt(Math.pow(maxY, 2) + Math.pow(maxX, 2));
             }
         }
-        ui.drawCircle((int) ((averageValueX * SCALE) + SHIFT), (int) ((averageValueY * SCALE) + SHIFT), (int) ((maxDistance * 2)), (int) ((maxDistance * 2)), colour, false);
+        ui.drawCircle(getCircleX(averageValueX),getCircleY (averageValueY), (int) ((maxDistance * 2)), (int) ((maxDistance * 2)), colour, false);
     }
+
     private void drawGraph(ClusterRow clusterRow) {
         for (int i = 0; i < clusterRow.getLength(); i++) {
             Colour c = createRandomColor();
@@ -53,7 +54,7 @@ public class Cartasian implements View {
     private void drawCluster(int i, int j,Colour c) {
         ui.drawCircle(getClusterY(i, j),getClusterX(i, j) , CIRCLERADIUS, CIRCLERADIUS, c, true);
         ui.drawCircle(getClusterY(i, j),getClusterX(i, j), CIRCLERADIUS, CIRCLERADIUS, black, false);
-        ui.setCircleHotspot(getClusterY(i, j),getClusterX(i, j),CIRCLERADIUS,CIRCLERADIUS, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
+        ui.setCircleHotspot(getClusterY(i, j), getClusterX(i, j), CIRCLERADIUS, CIRCLERADIUS, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
     }
 
     private int getClusterY(int i, int j){
@@ -62,6 +63,14 @@ public class Cartasian implements View {
 
     private int getClusterX(int i, int j){
         return (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT;
+    }
+
+    private int getCircleX(double averageValueX){
+        return (int) ((averageValueX * SCALE) + SHIFT);
+    }
+
+    private int getCircleY(double averageValueY){
+        return (int) ((averageValueY * SCALE) + SHIFT);
     }
 
 

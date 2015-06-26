@@ -9,7 +9,6 @@ public class Pearson implements DistanceMeasure {
         averageValue[1] = calculateAverageValues(unit2, length);
         standardDeviation[0] = calculateStandardDeviation(unit1, averageValue[0], length);
         standardDeviation[1] = calculateStandardDeviation(unit2, averageValue[1], length);
-        System.out.println(calculatePearsonCorrelation(averageValue, standardDeviation, unit1, unit2, length));
         return 1-calculatePearsonCorrelation(averageValue, standardDeviation, unit1, unit2, length);
     }
     private double calculateAverageValues(Unit unit, int length){

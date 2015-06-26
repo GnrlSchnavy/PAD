@@ -2,9 +2,13 @@
   <dictionary name="Yvan">
     <words>
       <w>cartasian</w>
+      <w>circleoffset</w>
+      <w>circleradius</w>
       <w>clusterer</w>
       <w>dataset</w>
       <w>prerequisities</w>
+      <w>xvalue</w>
+      <w>yincrease</w>
     </words>
   </dictionary>
 </component>

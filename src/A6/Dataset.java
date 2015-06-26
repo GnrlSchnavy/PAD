@@ -1,7 +1,5 @@
 package A6;
 
-import java.util.Arrays;
-
 public class Dataset {
 
     private int numberOfClusters;
@@ -25,7 +23,6 @@ public class Dataset {
         }
         return toNormalizeDataSet;
     }
-
     public void doPreselection(Dataset normalizedDataSet){
         double [] averageValueRow = addAllNumbers(normalizedDataSet);
         NumberRow standardDeviationRow = calculateStandardDeviationRow(normalizedDataSet,averageValueRow);

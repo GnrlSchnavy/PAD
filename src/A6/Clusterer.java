@@ -38,7 +38,6 @@ public class Clusterer{
         view.draw(clusterRow);
         handleEvents();
 
-
     }
     private void handleEvents() {
         while (true) {
@@ -62,9 +61,12 @@ public class Clusterer{
         System.exit(0);
     }
     private void pickDistanceMeasures() {
-        String  clusteringMethod = UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
-        String distanceMeasure = UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
-        String viewMethod = UIAuxiliaryMethods.askUserForChoice("Choose view method", "Dendogram","Cartasian");
+        String  clusteringMethod =
+                UIAuxiliaryMethods.askUserForChoice("Choose distance measure", "AverageLinkage", "CompleteLinkage", "SingleLinkage");
+        String distanceMeasure =
+                UIAuxiliaryMethods.askUserForChoice("Choose clustering method", "Euclidean","Manhattan","Pearson");
+        String viewMethod =
+                UIAuxiliaryMethods.askUserForChoice("Choose view method", "Dendogram","Cartasian");
         handleUserClusteringDistance(distanceMeasure, clusteringMethod,viewMethod);
     }
     private void prerequisities() {
