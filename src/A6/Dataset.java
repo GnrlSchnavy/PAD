@@ -1,5 +1,6 @@
 package A6;
 
+
 public class Dataset {
 
     private int numberOfClusters;
@@ -136,8 +137,5 @@ public class Dataset {
     public void setNumberOfVariableRows(int numberOfVariableRows){
         this.numberOfVariableRows = numberOfVariableRows;
     }
-
-
-
 }
 

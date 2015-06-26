@@ -28,7 +28,7 @@ public class Clusterer{
     Clusterer(){
         out = new PrintStream(System.out);
         Locale.setDefault(Locale.US);
-        ui = UserInterfaceFactory.getDrawUI(800,800);
+        ui = UserInterfaceFactory.getDrawUI(650,650);
     }
     private void start() {
         prerequisities();

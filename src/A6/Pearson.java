@@ -28,8 +28,11 @@ public class Pearson implements DistanceMeasure {
     private double calculatePearsonCorrelation(double[] averageValue, double[] standardDeviation, Unit unit1, Unit unit2, int length) {
         double total =0;
         for (int i = 0; i <length ; i++) {
-            total += ((unit1.getNumberRow().getValues(i) - averageValue[0])/standardDeviation[0]) * ((unit2.getNumberRow().getValues(i) - averageValue[1])/standardDeviation[1]);
+            total += pearsonMultiplication(unit1, unit2, averageValue,standardDeviation,i);
         }
         return (1.0/(length-1))*total;
+    }
+    private double pearsonMultiplication (Unit unit1,Unit unit2, double [] averageValue,double [] standardDeviation, int i){
+        return  ((unit1.getNumberRow().getValues(i) - averageValue[0])/standardDeviation[0]) * ((unit2.getNumberRow().getValues(i) - averageValue[1])/standardDeviation[1]);
     }
 }

@@ -29,13 +29,21 @@ public class Dendogram implements View {
     }
 
     private int drawCluster(Cluster cluster, Colour colour) {
+
         int yValue;
         if (cluster.hasChildren()) {
             yValue = drawNode(cluster, colour, yStart);
+            if(isRoot()){
+                ui.drawLine(0,yValue,getXValue(cluster),yValue,black);
+            }
         } else {
             yValue = drawLeaf(cluster, colour);
         }
         return yValue;
+    }
+
+    private boolean isRoot() {
+        return false;
     }
 
     private int drawNode(Cluster cluster, Colour colour, int yValue) {
@@ -50,8 +58,8 @@ public class Dendogram implements View {
     private int drawLeaf(Cluster cluster, Colour colour) {
         yStart += YINCREASE;
         ui.drawText(XVALUE, yStart - CIRCLEOFFSET/2, cluster.getUnits().getUnit(0).getUnitName(), black);
-        ui.drawCircle(XVALUE - CIRCLEOFFSET, yStart, CIRCLERADIUS, CIRCLERADIUS, colour, true);
-        ui.drawCircle(XVALUE - CIRCLEOFFSET, yStart, CIRCLERADIUS, CIRCLERADIUS, black, false);
+        ui.drawCircle(XVALUE - CIRCLEOFFSET-5, yStart, CIRCLERADIUS, CIRCLERADIUS, colour, true);
+        ui.drawCircle(XVALUE - CIRCLEOFFSET-5, yStart, CIRCLERADIUS, CIRCLERADIUS, black, false);
         return yStart;
     }
 
@@ -66,8 +74,8 @@ public class Dendogram implements View {
     }
 
     private void drawThisNode(int[] yValues, int[] xValues, int middleY, int x, Colour colour) {
-        ui.drawLine(x, yValues[0], xValues[0] - 5, yValues[0], black);
-        ui.drawLine(x, yValues[1], xValues[1] - 5, yValues[1], black);
+        ui.drawLine(x, yValues[0], xValues[0] -5, yValues[0], black);
+        ui.drawLine(x, yValues[1], xValues[1] -5, yValues[1], black);
         ui.drawLine(x, yValues[0], x, yValues[1], black);
         ui.drawCircle(x, middleY, CIRCLERADIUS, CIRCLERADIUS, colour, true);
         ui.drawCircle(x, middleY, CIRCLERADIUS, CIRCLERADIUS, black, false);
@@ -86,7 +94,8 @@ public class Dendogram implements View {
         ui.clear();
         yStart = 10;
         for (int i = 0; i < clusterRow.getLength(); i++) {
-            drawCluster(clusterRow.getCluster(i), createRandomColor()); //draws every cluster in clusterRow
+            int y= drawCluster(clusterRow.getCluster(i), createRandomColor()); //draws every cluster in clusterRow
+            ui.drawLine(0,y,getXValue(clusterRow.getCluster(i))-(CIRCLERADIUS/2),y,black);
         }
         ui.showChanges();
     }
