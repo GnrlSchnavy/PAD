@@ -10,6 +10,7 @@ public class Cartasian implements View {
     private Colour black;
     private final int SCALE = 500;
     private final int SHIFT = 10;
+    private final int CIRCLERADIUS = 10;
     Cartasian(DrawUserInterface ui, Dataset d, ClusterRow clusterRow) {
         this.ui = ui;
         this.d = d;
@@ -50,10 +51,19 @@ public class Cartasian implements View {
     }
 
     private void drawCluster(int i, int j,Colour c) {
-        ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, c, true);
-        ui.drawCircle((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT, 10, 10, black, false);
-        ui.setCircleHotspot((int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT, (int) ((clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1)) * SCALE) +SHIFT,10,10, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
+        ui.drawCircle(getClusterY(i, j),getClusterX(i, j) , CIRCLERADIUS, CIRCLERADIUS, c, true);
+        ui.drawCircle(getClusterY(i, j),getClusterX(i, j), CIRCLERADIUS, CIRCLERADIUS, black, false);
+        ui.setCircleHotspot(getClusterY(i, j),getClusterX(i, j),CIRCLERADIUS,CIRCLERADIUS, clusterRow.getCluster(i).getUnits().getUnit(j).getUnitName());
     }
+
+    private int getClusterY(int i, int j){
+        return (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(0) * SCALE) + SHIFT;
+    }
+
+    private int getClusterX(int i, int j){
+        return (int) (clusterRow.getCluster(i).getUnits().getUnit(j).getNumberRow().getValues(1) * SCALE) + SHIFT;
+    }
+
 
     private void drawGraphBackground() {
         ui.drawLine(10, 10, 10, 500, black);
