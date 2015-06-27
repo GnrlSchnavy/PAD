@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PAD:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/PAD_jar2</output-path>
+    <root id="archive" name="PAD.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/../../META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="PAD" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libUI(1).jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
